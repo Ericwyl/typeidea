@@ -52,6 +52,20 @@ class Post(models.Model):
         (STATUS_DRAFT, '草稿'),
     )
 
+    title = models.CharField(max_length=255, verbose_name='标题')
+    desc = models.CharField(max_length=1024, blank=True, verbose_name='描述')
+    content = models.TextField(verbose_name='正文', help_text='文本内容必须为markdown格式')
+    status = models.PositiveIntegerField(default=STATUS_NORMAL, choices=STATUS_ITEMS, verbose_name='状态')
+    category = models.ForeignKey(Category, verbose_name='分类')
+    tag = models.ManyToManyField(Tag, verbose_name='标签')
+    owner = models.ForeignKey(User, verbose_name='作者')
+    create_time = models.DateTimeField(auto_now_add=True, verbose_name='创建时间')
+
+
+    class Meta:
+        verbose_name = verbose_name_plural = '文章'
+        ordering = ['id']
+
 
 
 
