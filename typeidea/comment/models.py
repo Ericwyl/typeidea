@@ -1,7 +1,8 @@
 from django.db import models
 
 # Create your models here.
-from typeidea.blog.models import Post
+# from typeidea.blog.models import Post
+from blog.models import Post
 
 class Comment(models.Model):
     STATUS_NORMAL = 1
