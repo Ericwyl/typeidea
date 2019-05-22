@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7745f26a-479d-4243-bcb7-c15fa418e734" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/typeidea/config/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -152,7 +152,20 @@
               <item name="typeidea" type="b2602c69:ProjectViewProjectNode" />
               <item name="typeidea" type="462c0819:PsiDirectoryNode" />
               <item name="typeidea" type="462c0819:PsiDirectoryNode" />
-              <item name="config" type="462c0819:PsiDirectoryNode" />
+              <item name="blog" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="typeidea" type="b2602c69:ProjectViewProjectNode" />
+              <item name="typeidea" type="462c0819:PsiDirectoryNode" />
+              <item name="typeidea" type="462c0819:PsiDirectoryNode" />
+              <item name="blog" type="462c0819:PsiDirectoryNode" />
+              <item name="migrations" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="typeidea" type="b2602c69:ProjectViewProjectNode" />
+              <item name="typeidea" type="462c0819:PsiDirectoryNode" />
+              <item name="typeidea" type="462c0819:PsiDirectoryNode" />
+              <item name="comment" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -281,7 +294,21 @@
       <option name="project" value="LOCAL" />
       <updated>1558492214040</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="config">
+      <created>1558492953099</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1558492953099</updated>
+    </task>
+    <task id="LOCAL-00006" summary="migrations">
+      <created>1558493078638</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1558493078638</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -322,7 +349,9 @@
     <MESSAGE value="config字段完成" />
     <MESSAGE value="comment表字段完成" />
     <MESSAGE value="sqlite3配置完成" />
-    <option name="LAST_COMMIT_MESSAGE" value="sqlite3配置完成" />
+    <MESSAGE value="config" />
+    <MESSAGE value="migrations" />
+    <option name="LAST_COMMIT_MESSAGE" value="migrations" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/typeidea/typeidea/urls.py">
@@ -486,9 +515,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/typeidea/blog/migrations/0001_initial.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/typeidea/typeidea/wsgi.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="374">
@@ -519,6 +545,9 @@
           <caret line="11" selection-start-line="11" selection-end-line="11" />
         </state>
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/typeidea/blog/migrations/0001_initial.py">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/typeidea/config/models.py">
       <provider selected="true" editor-type-id="text-editor">
