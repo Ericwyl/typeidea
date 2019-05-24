@@ -1,42 +1,47 @@
+from typeidea.custom_site import custom_site
+from typeidea.base_admin import BaseOwnerAdmin
+
 from django.contrib import admin
 from django.urls import reverse
 from django.utils.html import format_html
-
 from .adminforms import PostAdminForm
-
 # Register your models here.
-
 from .models import Post, Category, Tag
-from .custom_site import custom_site
+from django.contrib.admin import AdminSite
+
+
+class PostInline(admin.TabularInline):
+    fields = ('title', 'desc')
+    extra = 1
+    model = Post
 
 
 class PostAdmin(admin.ModelAdmin):
     form = PostAdminForm
 
 
-@admin.register(Category)
-class CategoryAdmin(admin.ModelAdmin):
+@admin.register(Category, site=custom_site)
+class CategoryAdmin(BaseOwnerAdmin):
     list_display = ('name', 'status', 'is_nav', 'create_time', 'post_count')
     fields = ('name', 'status', 'is_nav')
 
-    def save_model(self, request, obj, form, change):
-        obj.owner = request.user
-        return super(CategoryAdmin, self).save_model(request, obj, form, change)
+    # def save_model(self, request, obj, form, change):
+    #     obj.owner = request.user
+    #     return super(CategoryAdmin, self).save_model(request, obj, form, change)
 
     def post_count(self, obj):
         return obj.post_set.count()
     post_count.short_description = '文章数量'
 
 
-
-@admin.register(Tag)
-class TagAdmin(admin.ModelAdmin):
+@admin.register(Tag, site=custom_site)
+class TagAdmin(BaseOwnerAdmin):
     list_display = ('name', 'status', 'create_time')
     fields = ('name', 'status')
 
-    def save_model(self, request, obj, form, change):
-        obj.owner = request.user
-        return super(TagAdmin, self).save_model(request, obj, form, change)
+    # def save_model(self, request, obj, form, change):
+    #     obj.owner = request.user
+    #     return super(TagAdmin, self).save_model(request, obj, form, change)
 
 
 class CategoryOwnerFilter(admin.SimpleListFilter):
@@ -55,11 +60,12 @@ class CategoryOwnerFilter(admin.SimpleListFilter):
 
 
 @admin.register(Post, site=custom_site)
-class PostAdmin(admin.ModelAdmin):
+class PostAdmin(BaseOwnerAdmin):
+    form = PostAdminForm
     list_display = [
         'title', 'category', 'status', 'create_time', 'operator', 'owner'
     ]
-    list_filter_links = []
+    list_display_links = []
 
     list_filter = [CategoryOwnerFilter, ]
     search_fields = ['title', 'category__name']
@@ -72,13 +78,13 @@ class PostAdmin(admin.ModelAdmin):
     save_on_top = True
     exclude = ('owner', )
 
-    # fields = (
-    #     ('category', 'title'),
-    #     'desc',
-    #     'status',
-    #     'content',
-    #     'tag',
-    # )
+    fields = (
+        ('category', 'title'),
+        'desc',
+        'status',
+        'content',
+        'tag',
+    )
 
     fieldsets = (
         ('基础配置', {
@@ -105,13 +111,6 @@ class PostAdmin(admin.ModelAdmin):
     )
 
 
-    class Meta:
-        css = {
-            'all': ('https://cdn.bootcss.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css', ),
-
-        }
-        js = ('https://cdn.bootcss.com/bootstrap/4.0.0-brta.2/js/bootstrap.bundle.js',)
-
 
     def operator(self, obj):
         return format_html(
@@ -122,22 +121,15 @@ class PostAdmin(admin.ModelAdmin):
         )
     operator.short_description = '操作'
 
-    def save_model(self, request, obj, form, change):
-        obj.owner = request.user
-        return super(PostAdmin, self).save_model(request, obj, form, change)
+    class Meta:
+        css = {
+            'all': ('https://cdn.bootcss.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css',),
 
-    def get_queryset(self, request):
-        qs = super(PostAdmin, self).get_queryset(request)
-        return qs.filter(owner=request.user)
+        }
+        js = ('https://cdn.bootcss.com/bootstrap/4.0.0-brta.2/js/bootstrap.bundle.js',)
 
 
-class PostInline(admin.TabularInline):
-    fields = ('title', 'desc')
-    extra = 1
-    model = Post
 
-class CategoryAdmin(admin.ModelAdmin):
-    inlines = [PostInline, ]
 
 
 
