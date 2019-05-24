@@ -1,10 +1,14 @@
-from typeidea.custom_site import custom_site
-from typeidea.base_admin import BaseOwnerAdmin
+from custom_site import custom_site
+
+print('111', custom_site)
+from base_admin import BaseOwnerAdmin
 
 from django.contrib import admin
 from django.urls import reverse
 from django.utils.html import format_html
 from .adminforms import PostAdminForm
+
+print('222', PostAdminForm)
 # Register your models here.
 from .models import Post, Category, Tag
 from django.contrib.admin import AdminSite
@@ -32,6 +36,7 @@ class CategoryAdmin(BaseOwnerAdmin):
 
     def post_count(self, obj):
         return obj.post_set.count()
+
     post_count.short_description = '文章数量'
 
 
@@ -74,18 +79,17 @@ class PostAdmin(BaseOwnerAdmin):
     actions_on_top = True
     actions_on_bottom = True
 
-
-    #编辑页面
+    # 编辑页面
     save_on_top = True
-    exclude = ('owner', )
+    exclude = ('owner',)
 
-    fields = (
-        ('category', 'title'),
-        'desc',
-        'status',
-        'content',
-        'tag',
-    )
+    # fields = (
+    #     ('category', 'title'),
+    #     'desc',
+    #     'status',
+    #     'content',
+    #     'tag',
+    # )
 
     fieldsets = (
         ('基础配置', {
@@ -102,16 +106,13 @@ class PostAdmin(BaseOwnerAdmin):
                 'content',
             ),
 
-
         }),
         ('额外信息', {
             'classes': ('collapse',),
-            'fields': ('tag', ),
+            'fields': ('tag',),
 
         })
     )
-
-
 
     def operator(self, obj):
         return format_html(
@@ -120,6 +121,7 @@ class PostAdmin(BaseOwnerAdmin):
             reverse('cus_admin:blog_post_change', args=(obj.id,))
 
         )
+
     operator.short_description = '操作'
 
     class Meta:
@@ -133,26 +135,3 @@ class PostAdmin(BaseOwnerAdmin):
 @admin.register(LogEntry, site=custom_site)
 class LogEntryAdmin(admin.ModelAdmin):
     list_display = ['object_repr', 'object_id', 'action_flag', 'user', 'change_message']
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

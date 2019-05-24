@@ -16,7 +16,7 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 
-from typeidea.custom_site import custom_site
+from custom_site import custom_site
 
 
 urlpatterns = [
