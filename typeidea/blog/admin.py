@@ -8,6 +8,7 @@ from .adminforms import PostAdminForm
 # Register your models here.
 from .models import Post, Category, Tag
 from django.contrib.admin import AdminSite
+from django.contrib.admin.models import LogEntry
 
 
 class PostInline(admin.TabularInline):
@@ -129,6 +130,9 @@ class PostAdmin(BaseOwnerAdmin):
         js = ('https://cdn.bootcss.com/bootstrap/4.0.0-brta.2/js/bootstrap.bundle.js',)
 
 
+@admin.register(LogEntry, site=custom_site)
+class LogEntryAdmin(admin.ModelAdmin):
+    list_display = ['object_repr', 'object_id', 'action_flag', 'user', 'change_message']
 
 
 
