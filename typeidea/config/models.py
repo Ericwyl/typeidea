@@ -2,6 +2,7 @@ from django.db import models
 
 # Create your models here.
 from django.contrib.auth.models import User
+from django.template.loader import render_to_string
 
 
 class Link(models.Model):
@@ -49,9 +50,43 @@ class SideBar(models.Model):
         verbose_name = verbose_name_plural = '侧边栏'
 
 
+    @classmethod
+    def get_all(cls):
+        return cls.objects.filter(status=cls.STATUS_SHOW)
+
+    @property
+    def content_html(self):
+        '''直接渲染模板'''
+        from blog.models import Post
+        from comment.models import Comment
+
+        result = ''
+        if self.display_type == self.DISPLAY_HTML:
+            result = self.content
+        elif self.display_type == self.DISPLAY_LATEST:
+            context = {
+                'posts': Post.latest_posts()
+            }
+            result = render_to_string('config/blocks/sidebar_posts.html', context)
+        elif self.display_type == self.DISPLAY_HOT:
+            context = {
+                'posts': Post.hot_posts()
+
+            }
+            result = render_to_string('config/blocks/sidebar_posts.html', context)
+
+        elif self.display_type == self.DISPLAY_COMMENT:
+            context = {
+                'comments': Comment.objects.filter(status=Comment.STATUS_NORMAL)
+            }
+            result = render_to_string('config/blocks/sidebar_comments.html', context)
+
+        return result
 
 
-
+    @classmethod
+    def get_all(cls):
+        return cls.objects.filter(status=cls.STATSU_SHOW)
 
 
 
