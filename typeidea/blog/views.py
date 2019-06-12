@@ -105,8 +105,9 @@ class CategoryView(IndexView):
 
         })
         return context
+
     def get_queryset(self):
-        '''重写queryset,根据分类过滤'''
+        """ 重写querset，根据分类过滤 """
         queryset = super().get_queryset()
         category_id = self.kwargs.get('category_id')
         return queryset.filter(category_id=category_id)
@@ -121,11 +122,13 @@ class TagView(IndexView):
             'tag': tag
         })
         return context
+
+
     def get_queryset(self):
         '''重写queryset，根据标签过滤'''
         queryset = super().get_queryset()
         tag_id = self.kwargs.get('tag_id')
-        return queryset.filter(tag_id=tag_id)
+        return queryset.filter(tag__id=tag_id)
 
 
 class PostDetailView(CommentViewMixin, DetailView):
