@@ -21,6 +21,7 @@ from blog.views import post_list
 from blog.views import (IndexView, CategoryView, TagView, PostDetailView)
 from config.views import links
 from blog.views import PostDetailView, SearchView
+# import xadmin
 
 urlpatterns = [
     url(r'^$', IndexView.as_view(), name='index'),

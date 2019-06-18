@@ -13,6 +13,7 @@ from django.views.generic import ListView
 from .models import Post
 from django.core.cache import cache
 
+
 def post_list(request, category_id=None, tag_id=None):
     tag = None
     category = None
@@ -155,7 +156,7 @@ class PostDetailView(CommentViewMixin, DetailView):
 
         if not cache.get(uv_key):
             increase_uv = True
-            cache.set(pv_key, 1, 24*60*60)
+            cache.set(uv_key, 1, 24*60*60)
 
         if increase_pv and increase_uv:
             Post.objects.filter(pk=self.object.id).update(pv=F('pv') + 1, uv=F('uv')+1)
