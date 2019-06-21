@@ -49,19 +49,19 @@ def post_list(request, category_id=None, tag_id=None):
     # return render(request, 'blog/list.html', context={'post_list': 'post_list'})
 
 
-# def post_detail(request, post_id=None):
-#     try:
-#         post = Post.objects.get(id=post_id)
-#     except Post.DoesNotExist:
-#         post = None
-#
-#     context = {
-#         'post': post,
-#         'sidebars':SideBar.get_all(),
-#
-#     }
-#     context.update(Category.get_navs())
-#     return render(request, 'blog/detail.html', context=context)
+def post_detail(request, post_id=None):
+    try:
+        post = Post.objects.get(id=post_id)
+    except Post.DoesNotExist:
+        post = None
+
+    context = {
+        'post': post,
+        'sidebars': SideBar.get_all(),
+
+    }
+    context.update(Category.get_navs())
+    return render(request, 'blog/detail.html', context=context)
 
 
 
@@ -75,9 +75,9 @@ class PostListView(ListView):
     queryset = Post.latest_posts()
     paginate_by = 3
     context_object_name = 'post_list'
-    template_name = 'blog/list.html'
+    template_name = "blog/list.html"
 
-
+#处理通用数据
 class CommentViewMixin:
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -89,7 +89,7 @@ class CommentViewMixin:
         return context
 
 
-class IndexView(ListView):
+class IndexView(CommentViewMixin, ListView):
     queryset = Post.latest_posts()
     paginate_by = 5
     context_object_name = 'post_list'
@@ -133,7 +133,7 @@ class TagView(IndexView):
 
 
 class PostDetailView(CommentViewMixin, DetailView):
-    model = Post
+    # model = Post
     queryset = Post.latest_posts()
     template_name = 'blog/detail.html'
     context_object_name = 'post'
@@ -166,7 +166,6 @@ class PostDetailView(CommentViewMixin, DetailView):
             Post.objects.filter(pk=self.object.id).update(uv=F('uv') + 1)
 
 
-
 class SearchView(IndexView):
     def get_context_data(self):
         context = super().get_context_data()
@@ -183,6 +182,12 @@ class SearchView(IndexView):
             return queryset
         return queryset.filter(Q(title__icontains=keyword) | Q(desc__icontains=keyword))
 
+
+class AuthorView(IndexView):
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        author_id = self.kwargs.get('owner_id')
+        return queryset.filter(owner_id=author_id)
 
 
 

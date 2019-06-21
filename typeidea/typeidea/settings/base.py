@@ -23,15 +23,15 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'dmc_mz=u&wpc8*97k0&v=m4j&#ev6h_d=p3owicjdkz_rf2k^8'
 
 # SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = True
 
-
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
 
 INSTALLED_APPS = [
-    # 'typeidea',
+    'typeidea',
     'blog',
     'config',
     'comment',
@@ -47,7 +47,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    # 'blog.middleware.user_id.UserIDMiddleware',
+    'blog.middleware.user_id.UserIDMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -64,8 +64,8 @@ THEME = 'bootstrap'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        # 'DIRS': [os.path.join(BASE_DIR, 'themes', THEME, 'templates')],
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'themes', THEME, 'templates')],
+        # 'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -83,9 +83,6 @@ WSGI_APPLICATION = 'typeidea.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
-
-
-
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
@@ -123,12 +120,13 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
+#STATIC_ROOT用来配制部署之后的静态资源路经
 STATIC_ROOT = '/tmp/static/'
 
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'themes', 'THEME', 'static'),
+    os.path.join(BASE_DIR, 'themes', THEME, "static"),
 ]
 
 XADMIN_TITLE = 'Typeidea管理后台'
