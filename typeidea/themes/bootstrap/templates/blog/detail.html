@@ -1,7 +1,7 @@
-{#{% extends './base.html' %}#}
-{#{% block title %}  {{ post.title }}  {% endblock %}#}
-{##}
-{#{% block main %}#}
+{% extends './base.html' %}
+{% block title %}  {{ post.title }}  {% endblock %}
+
+{% block main %}
 {% if post %}
 
 <h1>{{ post.title }}</h1>
@@ -17,7 +17,7 @@
 {% endif %}
 
 
-{#{% endblock %}#}
+{% endblock %}
 
 
 
