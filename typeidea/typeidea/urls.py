@@ -37,3 +37,11 @@ urlpatterns = [
     url(r'^admin/', custom_site.urls, name='admin'),
     url(r'^author/(?P<owner_id>\d+)/$', AuthorView.as_view(), name='author')
 ]
+
+# if settings.DEBUG:
+#     import debug_toolbar
+#     urlpatterns = [
+#         url(r'^__debug__/', include(debug_toolbar.urls)),
+#
+#     ] + urlpatterns
+

@@ -124,7 +124,6 @@ class TagView(IndexView):
         })
         return context
 
-
     def get_queryset(self):
         '''重写queryset，根据标签过滤'''
         queryset = super().get_queryset()
