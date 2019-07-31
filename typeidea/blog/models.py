@@ -131,8 +131,14 @@ class Post(models.Model):
         return post_list, category
 
     @classmethod
-    def latest_posts(cls):
+    # def latest_posts(cls):
+    #     queryset = cls.objects.filter(status=cls.STATUS_NORMAL)
+    #     return queryset
+    #with_related控制返回的数据是否要加上两个外健数据，
+    def latest_posts(cls, with_related=True):
         queryset = cls.objects.filter(status=cls.STATUS_NORMAL)
+        if with_related:
+            queryset = queryset.select_related('owner', 'category')
         return queryset
 
     @classmethod
