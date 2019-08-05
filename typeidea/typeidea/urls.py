@@ -24,6 +24,10 @@ from config.views import links
 from blog.views import PostDetailView, SearchView, AuthorView
 # import xadmin
 from config.views import LinkListView
+from django.contrib.sitemaps import views as sitemap_views
+from django.views.decorators.cache import cache_page
+
+from blog.sitemap import PostSitemap
 
 urlpatterns = [
     url(r'^$', IndexView.as_view(), name='index'),
@@ -36,7 +40,11 @@ urlpatterns = [
 
     url(r'^super_admin/', admin.site.urls, name='super-admin'),
     url(r'^admin/', custom_site.urls, name='admin'),
-    url(r'^author/(?P<owner_id>\d+)/$', AuthorView.as_view(), name='author')
+    url(r'^author/(?P<owner_id>\d+)/$', AuthorView.as_view(), name='author'),
+    url(r'^sitemap\.xml$', cache_page(60 * 20, key_prefix='sitemap_cache_')(sitemap_views.sitemap),
+        {'sitemaps': {'posts': PostSitemap}}),
+    url(r'^captcha/', include('captcha.urls')),
+
 ]
 
 if settings.DEBUG:

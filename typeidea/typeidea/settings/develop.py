@@ -4,8 +4,15 @@ DEBUG = True
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'typeidea_db',
+        'USER': 'root',
+        'PASSWORD': 'wyl@123',
+        'HOST': '127.0.0.1',
+        'PORT': 3306,
+        'CONN_MAX_AGE': 5*60,
+        'OPTIONS': {'charset': 'utf8mb4'}
+
     }
 }
 
@@ -55,8 +62,6 @@ RAVEN_CONFIG = {
     'dsn': 'http://ac72ba920a864100b375f3f626d54835:bd5aae601a234b5ca02a5441a88b7814@127.0.0.1:19000//3',
     # 'release': VERSION,  # 默认的配置是从git项目读取最新的commit，我们这里使用已经base中配置的VERSEION。
 }
-
-
 
 
 

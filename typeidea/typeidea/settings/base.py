@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'comment',
     # 'xadmin',
     # 'crispy_forms',
+    'captcha',
 
     'django.contrib.admin',
     'django.contrib.auth',
